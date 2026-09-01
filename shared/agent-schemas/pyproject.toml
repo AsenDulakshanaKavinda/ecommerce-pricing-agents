@@ -1,0 +1,15 @@
+[project]
+name = "agent-schemas"
+version = "0.1.0"
+description = "Shared Pydantic message contracts between the pricing agent team"
+requires-python = ">=3.12"
+dependencies = [
+
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_schemas"]

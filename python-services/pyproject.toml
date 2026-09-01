@@ -1,0 +1,9 @@
+[tool.uv.workspace]
+members = [
+    "forecast-agent",
+    "reorder-agent",
+    "pricing-agent",
+    "explainer-agent",
+    "orchestrator",
+    "../shared/agent-schemas",
+]
