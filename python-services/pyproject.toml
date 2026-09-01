@@ -4,6 +4,7 @@ members = [
     "reorder-agent",
     "pricing-agent",
     "explainer-agent",
+    "data-pipeline",
     "orchestrator",
     "../shared/agent-schemas",
 ]

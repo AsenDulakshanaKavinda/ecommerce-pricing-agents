@@ -11,6 +11,7 @@ resolution-markers = [
 [manifest]
 members = [
     "agent-schemas",
+    "data-pipeline",
     "explainer-agent",
     "forecast-agent",
     "orchestrator",
@@ -701,6 +702,17 @@ wheels = [
 ]
 
 [[package]]
+name = "data-pipeline"
+version = "0.1.0"
+source = { editable = "data-pipeline" }
+dependencies = [
+    { name = "agent-schemas" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "agent-schemas", editable = "../shared/agent-schemas" }]
+
+[[package]]
 name = "databricks-sdk"
 version = "0.133.0"
 source = { registry = "https://pypi.org/simple" }
@@ -990,6 +1002,7 @@ version = "0.1.0"
 source = { editable = "forecast-agent" }
 dependencies = [
     { name = "agent-schemas" },
+    { name = "data-pipeline" },
     { name = "ipykernel" },
     { name = "lightgbm" },
     { name = "matplotlib" },
@@ -1001,6 +1014,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "agent-schemas", editable = "../shared/agent-schemas" },
+    { name = "data-pipeline", editable = "data-pipeline" },
     { name = "ipykernel", specifier = ">=7.3.0" },
     { name = "lightgbm", specifier = ">=4.7.0" },
     { name = "matplotlib", specifier = ">=3.11.1" },
