@@ -28,8 +28,8 @@ class CuratedSalesSchema(pa.DataFrameModel):
     date: datetime.datetime # can use - pa.DateTime
     item: int
     sales: int
-    sales_lag_1: int
-    sales_lag_7: int
+    sales_lag_1: float
+    sales_lag_7: float
 
     class Config:
         strict = True
