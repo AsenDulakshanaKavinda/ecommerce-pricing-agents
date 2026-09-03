@@ -1,4 +1,16 @@
-filepath: /home/viper/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/train.csv
-raw_file: str
-staged_file: str
-curated_file: str
+data_source:
+  filepath: /home/viper/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/train.csv
+  raw_file: str
+  staged_file: str
+  curated_file: str
+
+training:
+  data_type: curated
+  split_date: apiVersion: v1
+  kind: Secret
+  metadata:
+    name: mysecret
+  type: Opaque
+  data:
+    password: <Password>
+  

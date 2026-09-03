@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import pandas as pd
-
+from core import core_config
 
 class DataManager:
     def __init__(self):
@@ -22,11 +22,11 @@ class DataManager:
             ValueError: If the specified data_type is not recognized.
         """
         if data_type == "raw":
-            return self._get_raw_data()
+            return self._get_raw_data(core_config.data_source.raw_file)
         elif data_type == "staged":
-            return self._get_staged_data()
+            return self._get_staged_data(core_config.data_source.staged_file)
         elif data_type == "curated":
-            return self._get_curated_data()
+            return self._get_curated_data(core_config.data_source.curated_file)
         else:
             raise ValueError(f"Unknown data type: {data_type}")
 
