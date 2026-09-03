@@ -14,12 +14,6 @@ Pipeline stages: raw sales history -> staged -> curated (forecast-agent input).
     - curated is what forecast_agent.train reads to build the demand model
 """
 
-
-class RawDataConfig(Config):
-    filepath: str 
-
-
-
 @asset(group_name="ingestion")
 def raw_data(context: AssetExecutionContext, storage: StorageResource) -> pd.DataFrame:
     """
