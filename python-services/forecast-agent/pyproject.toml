@@ -1,11 +1,12 @@
 [project]
 name = "forecast-agent"
 version = "0.1.0"
-description = "Predicts demand per SKU; experiment-tracked with MLflow"
+description = "Experiment-tracked with MLflow"
 requires-python = ">=3.12"
 dependencies = [
     "agent-schemas",
-    "data-pipeline",
+    "sales-data-pipeline",
+    "core",
     "ipykernel>=7.3.0",
     "lightgbm>=4.7.0",
     "matplotlib>=3.11.1",
@@ -23,4 +24,5 @@ packages = ["src/forecast_agent"]
 
 [tool.uv.sources]
 agent-schemas = { workspace = true }
-data-pipeline = { workspace = true }
+sales-data-pipeline = { workspace = true }
+core = { workspace = true}

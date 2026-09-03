@@ -1,0 +1,1 @@
+uv run --package sales-data-pipeline --extra dev dagster dev -m sales_data_pipeline.definitions

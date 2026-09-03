@@ -1,10 +1,11 @@
 [tool.uv.workspace]
 members = [
+    "sales-data-pipeline",
     "forecast-agent",
     "reorder-agent",
     "pricing-agent",
     "explainer-agent",
-    "data-pipeline",
     "orchestrator",
     "../shared/agent-schemas",
+    "../shared/core",
 ]
