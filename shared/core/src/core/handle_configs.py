@@ -4,9 +4,15 @@ from pathlib import Path
 
 import yaml
 
+class DataSourceConfig(BaseModel):
+    filepath: str
+    raw_file: str
+    staged_file: str
+    curated_file: str
+
 
 class CoreConfig(BaseModel):
-    filepath: str
+    data_source: DataSourceConfig
 
 
 def load_yaml_config(file: str = "config.yaml") -> CoreConfig:
