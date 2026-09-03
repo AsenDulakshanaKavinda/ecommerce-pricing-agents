@@ -6,11 +6,5 @@ data_source:
 
 training:
   data_type: curated
-  split_date: apiVersion: v1
-  kind: Secret
-  metadata:
-    name: mysecret
-  type: Opaque
-  data:
-    password: <Password>
+  split_date: 2000-01-10
   
