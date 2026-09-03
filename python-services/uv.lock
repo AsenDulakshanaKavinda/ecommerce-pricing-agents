@@ -13,6 +13,7 @@ resolution-markers = [
 [manifest]
 members = [
     "agent-schemas",
+    "core",
     "explainer-agent",
     "forecast-agent",
     "orchestrator",
@@ -660,6 +661,11 @@ wheels = [
 ]
 
 [[package]]
+name = "core"
+version = "0.1.0"
+source = { editable = "../shared/core" }
+
+[[package]]
 name = "cryptography"
 version = "49.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1171,6 +1177,7 @@ version = "0.1.0"
 source = { editable = "forecast-agent" }
 dependencies = [
     { name = "agent-schemas" },
+    { name = "core" },
     { name = "ipykernel" },
     { name = "lightgbm" },
     { name = "matplotlib" },
@@ -1183,6 +1190,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "agent-schemas", editable = "../shared/agent-schemas" },
+    { name = "core", editable = "../shared/core" },
     { name = "ipykernel", specifier = ">=7.3.0" },
     { name = "lightgbm", specifier = ">=4.7.0" },
     { name = "matplotlib", specifier = ">=3.11.1" },
@@ -3588,6 +3596,7 @@ version = "0.1.0"
 source = { editable = "sales-data-pipeline" }
 dependencies = [
     { name = "alembic" },
+    { name = "core" },
     { name = "dagster" },
     { name = "dagster-duckdb" },
     { name = "mlflow" },
@@ -3607,6 +3616,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "alembic", specifier = ">=1.13.0" },
+    { name = "core", editable = "../shared/core" },
     { name = "dagster", specifier = ">=1.8.0" },
     { name = "dagster-duckdb", specifier = ">=0.29.20" },
     { name = "dagster-webserver", marker = "extra == 'dev'", specifier = ">=1.8.0" },

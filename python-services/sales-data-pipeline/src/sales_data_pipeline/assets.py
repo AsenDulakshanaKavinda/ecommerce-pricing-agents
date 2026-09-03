@@ -4,6 +4,7 @@ from dagster import AssetExecutionContext, Config, MetadataValue, asset
 
 from sales_data_pipeline.resources import MLflowResource, StorageResource
 from sales_data_pipeline.schemas import CuratedSalesSchema, StagedSalesSchema
+from core import core_config
 
 
 """Pipeline stages: raw sales history -> staged -> curated (forecast-agent input).
@@ -22,8 +23,7 @@ class RawDataConfig(Config):
 @asset(group_name="ingestion")
 def raw_data(context: AssetExecutionContext, storage: StorageResource) -> pd.DataFrame:
 
-    # df = pd.read_csv(config.filepath)
-    df = pd.read_csv("/home/viper/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/train.csv")
+    df = pd.read_csv(core_config.filepath)
     path = storage.write_parquet("raw", "sales.parquet", df)
     context.add_output_metadata({"row_count": len(df), "path": MetadataValue.path(path)})
     return df

@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Ingests and validates sales history feeding forecast-agent's training data"
 requires-python = ">=3.11"
 dependencies = [
+    "core",
     "dagster>=1.8.0",
     "pandas>=2.0",
     "pyarrow>=17.0.0",
@@ -30,3 +31,7 @@ packages = ["src/sales_data_pipeline"]
 
 [tool.dagster]
 module_name = "sales_data_pipeline.definitions"
+
+
+[tool.uv.sources]
+core = { workspace = true}

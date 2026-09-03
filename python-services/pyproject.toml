@@ -7,4 +7,5 @@ members = [
     "explainer-agent",
     "orchestrator",
     "../shared/agent-schemas",
+    "../shared/core",
 ]
