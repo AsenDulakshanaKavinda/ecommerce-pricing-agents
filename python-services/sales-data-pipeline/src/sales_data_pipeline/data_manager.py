@@ -1,7 +1,8 @@
-from datetime import datetime
+
 
 import pandas as pd
 from core import core_config
+from sklearn.model_selection import train_test_split
 
 class DataManager:
     def __init__(self):
@@ -43,24 +44,36 @@ class DataManager:
         return pd.read_parquet(path)
 
 
-    def train_test_split(self, dataset: pd.DataFrame, split_date: datetime, features: list, target: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-        """
-        Split the dataset into training and testing sets based on the specified split date.
-        Args:
-            dataset (pd.DataFrame): The dataset to split.
-            split_date (datetime): The date to use for splitting the dataset. All data before this date will be used for training, and all data on or after this date will be used for testing.
-            features (list): The list of feature column names to include in the training and testing sets.
-            target (str): The name of the target column to include in the training and testing sets.
-        Returns:
-            tuple: A tuple containing four pandas DataFrames: (X_train, X_test, y_train, y_test).
-        """
+    def train_test_split(
+            self,
+            dataset: pd.DataFrame,
+            features: list[str],
+            target: str,
+            test_size: float = 0.20,
+            temporal_split: bool = True,
+            date_col: str = "date"
+        ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+            """
+            Splits dataset using test percentage ratio.
+            
+            Args:
+                test_size (float): Proportion of dataset to include in the test split (e.g. 0.2 for 20%).
+                temporal_split (bool): If True, preserves chronological ordering without shuffling.
+            """
+            if temporal_split:
+                dataset = dataset.sort_values(by=date_col)
+                split_idx = int(len(dataset) * (1 - test_size))
 
-        train = dataset[dataset['date'] < split_date]
-        test = dataset[dataset['date'] >= split_date]
+                train = dataset.iloc[:split_idx]
+                test = dataset.iloc[split_idx:]
 
-        X_train = train[features]
-        y_train = train[target]
-        X_test = test[features]
-        y_test = test[target]
+                X_train, y_train = train[features], train[target]
+                X_test, y_test = test[features], test[target]
+            else:
+                X = dataset[features]
+                y = dataset[target]
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size, random_state=42, shuffle=False
+                )
 
-        return X_train, X_test, y_train, y_test
+            return X_train, X_test, y_train, y_test

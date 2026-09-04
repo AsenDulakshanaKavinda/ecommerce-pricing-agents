@@ -2,6 +2,7 @@
 from pydantic import BaseModel
 from pathlib import Path
 
+
 import yaml
 
 class DataSourceConfig(BaseModel):
@@ -10,9 +11,24 @@ class DataSourceConfig(BaseModel):
     staged_file: str
     curated_file: str
 
+class TrainingConfig(BaseModel):
+    data_type: str
+    features: list
+    target: str
+    test_size: float
+    is_temporal_split: bool
+    date_col: str
+
+class ExperimentConfig(BaseModel):
+    experiment_name: str
+    run_name: str
+    artifact_path: str
+
 
 class CoreConfig(BaseModel):
     data_source: DataSourceConfig
+    training: TrainingConfig
+    experiment: ExperimentConfig
 
 
 def load_yaml_config(file: str = "config.yaml") -> CoreConfig:
