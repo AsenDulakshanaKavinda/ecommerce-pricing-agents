@@ -31,6 +31,13 @@ def calculate_mape(y_true: np.ndarray, y_pred: np.ndarray, epsilon: float = 1e-8
 
 
 def train():
+    """
+    Script to train a LightGBM regression model using MLflow for experiment tracking.
+    create mlflow experiment and log parameters, metrics, and model artifacts.
+    Register the trained model in MLflow Model Registry for future inference and deployment.
+    """
+
+
     # 1. Set MLflow experiment & enable autologging
     mlflow.set_experiment(experiment_name=core_config.experiment.experiment_name)
     mlflow.lightgbm.autolog(log_models=False) # Handled manually in step 5 for custom signatures
@@ -49,16 +56,16 @@ def train():
 
     # 3. Parameters
     params = {
-        "objective": "regression",
-        "metric": "rmse",
-        "boosting_type": "gbdt",
-        "n_estimators": 500,
-        "learning_rate": 0.03,
-        "num_leaves": 31,
-        "subsample": 0.8,
-        "colsample_bytree": 0.8,
-        "random_state": 42,
-        "verbose": -1
+        "objective": core_config.params.objective,
+        "metric": core_config.params.metric,
+        "boosting_type": core_config.params.boosting_type,
+        "n_estimators": core_config.params.n_estimators,
+        "learning_rate": core_config.params.learning_rate,
+        "num_leaves": core_config.params.num_leaves,
+        "subsample": core_config.params.subsample,
+        "colsample_bytree": core_config.params.colsample_bytree,
+        "random_state": core_config.params.random_state,
+        "verbose": core_config.params.verbose
     }
 
     # 4. Start MLflow Run & Train Model

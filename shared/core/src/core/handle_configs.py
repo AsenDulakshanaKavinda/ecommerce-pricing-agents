@@ -25,11 +25,25 @@ class ExperimentConfig(BaseModel):
     artifact_path: str
     registered_model_name: str
 
+class Params(BaseModel):
+    objective: str
+    metric: str
+    boosting_type: str
+    n_estimators: int
+    learning_rate: float
+    num_leaves: int
+    subsample: float
+    colsample_bytree: float
+    random_state: int
+    verbose: int
+    
+
 
 class CoreConfig(BaseModel):
     data_source: DataSourceConfig
     training: TrainingConfig
     experiment: ExperimentConfig
+    params: Params
 
 
 def load_yaml_config(file: str = "config.yaml") -> CoreConfig:
