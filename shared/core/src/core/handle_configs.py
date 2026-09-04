@@ -23,6 +23,7 @@ class ExperimentConfig(BaseModel):
     experiment_name: str
     run_name: str
     artifact_path: str
+    registered_model_name: str
 
 
 class CoreConfig(BaseModel):

@@ -17,6 +17,7 @@ training:
 
 
 experiment:
-  experiment_name: experiment_name
+  experiment_name: ecommerce_pricing_forecaster_experiment
   run_name: lgbm-regression-run
   artifact_path: lgbm_model
+  registered_model_name: "ecommerce_pricing_forecaster"
