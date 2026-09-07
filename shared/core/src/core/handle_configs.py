@@ -2,11 +2,48 @@
 from pydantic import BaseModel
 from pathlib import Path
 
+
 import yaml
+
+class DataSourceConfig(BaseModel):
+    filepath: str
+    raw_file: str
+    staged_file: str
+    curated_file: str
+
+class TrainingConfig(BaseModel):
+    data_type: str
+    features: list
+    target: str
+    test_size: float
+    is_temporal_split: bool
+    date_col: str
+
+class ExperimentConfig(BaseModel):
+    experiment_name: str
+    run_name: str
+    artifact_path: str
+    registered_model_name: str
+
+class Params(BaseModel):
+    objective: str
+    metric: str
+    boosting_type: str
+    n_estimators: int
+    learning_rate: float
+    num_leaves: int
+    subsample: float
+    colsample_bytree: float
+    random_state: int
+    verbose: int
+    
 
 
 class CoreConfig(BaseModel):
-    filepath: str
+    data_source: DataSourceConfig
+    training: TrainingConfig
+    experiment: ExperimentConfig
+    params: Params
 
 
 def load_yaml_config(file: str = "config.yaml") -> CoreConfig:

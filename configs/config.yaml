@@ -1,1 +1,35 @@
-filepath: /home/viper/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/train.csv
+data_source:
+  filepath: /home/rapter/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/train.csv
+  raw_file: /home/rapter/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/raw/sales.parquet
+  staged_file: /home/rapter/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/staged/sales.parquet
+  curated_file: /home/rapter/projects/ecommerce-pricing-agents/python-services/sales-data-pipeline/data/curated/sales.parquet
+
+training:
+  data_type: curated
+  features:
+    - item
+    - sales_lag_1
+    - sales_lag_7
+  target: sales
+  test_size: 0.2
+  is_temporal_split: True
+  date_col: date
+
+
+experiment:
+  experiment_name: ecommerce_pricing_forecaster_experiment
+  run_name: lgbm-regression-run
+  artifact_path: lgbm_model
+  registered_model_name: "ecommerce_pricing_forecaster"
+
+params:
+  objective: regression
+  metric: rmse
+  boosting_type: gbdt
+  n_estimators: 100
+  learning_rate: 0.1
+  num_leaves: 31
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+  verbose: -1
