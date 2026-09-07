@@ -114,13 +114,7 @@ def train():
         log.info(f"Run completed. Run ID: {run.info.run_id}")
 
 
-def predict(run_id: str, sample_data):
-    # Load logged model using PyFunc interface for inference
-    model_uri = f"runs:/{run_id}/{core_config.experiment.artifact_path}"
-    loaded_model = mlflow.pyfunc.load_model(model_uri)
-    
-    predictions = loaded_model.predict(sample_data)
-    return predictions
+
 
 
 if __name__ == "__main__":
