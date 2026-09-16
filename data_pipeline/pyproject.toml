@@ -3,6 +3,7 @@ name = "data_pipeline"
 requires-python = ">=3.10,<3.15"
 version = "0.1.0"
 dependencies = [
+    "alembic>=1.20.0",
     "dagster==1.13.22",
     "dagster-duckdb>=0.29.22",
     "dagster-webserver>=1.13.22",

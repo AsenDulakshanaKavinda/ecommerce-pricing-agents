@@ -641,6 +641,7 @@ name = "data-pipeline"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "alembic" },
     { name = "dagster" },
     { name = "dagster-duckdb" },
     { name = "dagster-webserver" },
@@ -659,6 +660,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "alembic", specifier = ">=1.20.0" },
     { name = "dagster", specifier = "==1.13.22" },
     { name = "dagster-duckdb", specifier = ">=0.29.22" },
     { name = "dagster-webserver", specifier = ">=1.13.22" },
