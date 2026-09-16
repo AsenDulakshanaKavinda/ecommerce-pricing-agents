@@ -1,0 +1,69 @@
+
+
+services:
+  # Dagster PostgreSQL Instance Store / Storage backend
+  dagster_postgres:
+    image: postgres:17.10
+    container_name: dagster_postgres
+    environment:
+      POSTGRES_USER: dagster
+      POSTGRES_PASSWORD: dagster_password
+      POSTGRES_DB: dagster
+    volumes:
+      - dagster_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dagster"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Dagster Webserver (UI)
+  dagster_webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dagster_webserver
+    entrypoint:
+      - dagster-webserver
+      - -h
+      - "0.0.0.0"
+      - -p
+      - "3000"
+      - -w
+      - workspace.yaml
+    ports:
+      - "3000:3000"
+    environment:
+      DAGSTER_CURRENT_IMAGE: dagster_webserver
+      DAGSTER_PG_PASSWORD: dagster_password
+      DUCKDB_DATABASE_PATH: /opt/dagster/app/duckdb_data/main.duckdb
+    volumes:
+      - ./dagster.yaml:/opt/dagster/dagster_home/dagster.yaml
+      - duckdb_data:/opt/dagster/app/duckdb_data
+    depends_on:
+      dagster_postgres:
+        condition: service_healthy
+
+  # Dagster Daemon (Schedules, Sensors, Run Queue)
+  dagster_daemon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dagster_daemon
+    entrypoint:
+      - dagster-daemon
+      - run
+    environment:
+      DAGSTER_CURRENT_IMAGE: dagster_daemon
+      DAGSTER_PG_PASSWORD: dagster_password
+      DUCKDB_DATABASE_PATH: /opt/dagster/app/duckdb_data/main.duckdb
+    volumes:
+      - ./dagster.yaml:/opt/dagster/dagster_home/dagster.yaml
+      - duckdb_data:/opt/dagster/app/duckdb_data
+    depends_on:
+      dagster_postgres:
+        condition: service_healthy
+
+volumes:
+  dagster_postgres_data:
+  duckdb_data:
