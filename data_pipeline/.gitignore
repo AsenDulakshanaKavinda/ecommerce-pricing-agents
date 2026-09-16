@@ -203,4 +203,4 @@ __marimo__/
 .streamlit/secrets.toml
 
 # data source 
-data_pipeline/data_source/online_retail_II.csv
+ecommerce-pricing-agents/data_pipeline/data_source/online_retail_II.csv
